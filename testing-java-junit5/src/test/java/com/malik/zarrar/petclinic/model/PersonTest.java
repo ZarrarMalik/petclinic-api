@@ -12,15 +12,15 @@ class PersonTest {
 	@Test
 	void testGroupedAssertions() {
 		// Uses multiple asserts in a single test with lambdas
-		assertAll("Test Prop set", ()-> assertEquals(person.getFirstName(), "Joe"),
-				()->assertEquals(person.getLastName(), "Black"));
+		assertAll("Test Prop set", ()-> assertEquals("Joe", person.getFirstName()),
+				()->assertEquals("Black", person.getLastName()));
 	}
 	
 	@Test
 	void testGroupedAssertionsWithMessages() {
 		// Uses multiple asserts in a single test with lambdas
-		assertAll("Test Prop set", ()-> assertEquals(person.getFirstName(), "Joe", "First Name failed"),
-				() -> assertEquals(person.getLastName(), "Black", "Second Name failed"));
+		assertAll("Test Prop set", ()-> assertEquals("Joe", person.getFirstName(), "First Name failed"),
+				() -> assertEquals("Black", person.getLastName(), "Second Name failed"));
 	}
 
 }
