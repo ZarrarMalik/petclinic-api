@@ -27,41 +27,43 @@ class indexControllerTest {
 		// This test takes extra argument and is lazy and only shows the message if not
 		// satisfied
 		assertEquals("index", controller.index(), "Wrong view returned");
-	//	assertEquals("indexd", controller.index(), () -> "Wrong message returned with lambda");
+		// assertEquals("indexd", controller.index(), () -> "Wrong message returned with
+		// lambda");
 		assertEquals("index", controller.index(), () -> "Wrong message returned with lambda");
 	}
 
 	@Test
 	void testOupsHandler() {
-		
-		assertThrows(ValueNotFoundException.class, ()-> { 
-			
-		controller.oupsHandler();
+
+		assertThrows(ValueNotFoundException.class, () -> {
+
+			controller.oupsHandler();
 		});
-	//	assertTrue("notimplemented".equalsIgnoreCase(controller.oupsHandler()), () -> "Error -> test didn't pass");
+		// assertTrue("notimplemented".equalsIgnoreCase(controller.oupsHandler()), () ->
+		// "Error -> test didn't pass");
 
 	}
-	
-	   @Disabled("Demo of timeout")
-	    @Test
-	    void testTimeOut() {
 
-	        assertTimeout(Duration.ofMillis(100), () -> {
-	            Thread.sleep(5000);
+	@Disabled("Demo of timeout")
+	@Test
+	void testTimeOut() {
 
-	            System.out.println("I got here");
-	        });
-	    }
+		assertTimeout(Duration.ofMillis(100), () -> {
+			Thread.sleep(5000);
 
-	    @Disabled("Demo of timeout")
-	    @Test
-	    void testTimeOutPrempt() {
+			System.out.println("I got here");
+		});
+	}
 
-	        assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
-	            Thread.sleep(5000);
+	@Disabled("Demo of timeout")
+	@Test
+	void testTimeOutPrempt() {
 
-	            System.out.println("I got here 2342342342342");
-	        });
-	    }
+		assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
+			Thread.sleep(5000);
+
+			System.out.println("I got here 2342342342342");
+		});
+	}
 
 }
