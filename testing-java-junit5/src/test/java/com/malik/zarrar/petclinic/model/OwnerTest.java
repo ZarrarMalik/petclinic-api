@@ -1,6 +1,8 @@
 package com.malik.zarrar.petclinic.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,8 @@ class OwnerTest {
 	                        () -> assertEquals("Key West", owner.getCity(), "City Did Not Match"),
 	                        () -> assertEquals("1231231234", owner.getTelephone())
 	                ));
+	        //Hamcrest assertThat
+	        assertThat(owner.getCity(), is("Key West"));
 	    }
 
 }
