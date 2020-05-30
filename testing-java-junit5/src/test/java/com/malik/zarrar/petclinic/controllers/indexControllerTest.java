@@ -1,6 +1,7 @@
 package com.malik.zarrar.petclinic.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -27,7 +28,12 @@ class indexControllerTest {
 
 	@Test
 	void testOupsHandler() {
-		assertTrue("notimplemented".equalsIgnoreCase(controller.oupsHandler()), () -> "Error -> test didn't pass");
+		
+		assertThrows(ValueNotFoundException.class, ()-> { 
+			
+		controller.oupsHandler();
+		});
+	//	assertTrue("notimplemented".equalsIgnoreCase(controller.oupsHandler()), () -> "Error -> test didn't pass");
 
 	}
 
