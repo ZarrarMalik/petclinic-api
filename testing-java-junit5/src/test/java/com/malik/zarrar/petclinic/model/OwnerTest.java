@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -42,7 +43,7 @@ class OwnerTest {
 	// arguments are acutal string values spring, framework, guru
 	@ValueSource(strings = { "Spring", "Framework", "Guru" })
 	void testValueSource(String val) {
-		//Prints spring, framework and guru
+		// Prints spring, framework and guru
 		System.out.println(val);
 	}
 
@@ -53,19 +54,24 @@ class OwnerTest {
 	// All enums are iterated here in ownertype class
 	@EnumSource(OwnerType.class)
 	void testEnumSource(OwnerType ownerType) {
-		//Prints spring, framework and guru
+		// Prints spring, framework and guru
 		System.out.println(ownerType);
 	}
-	
+
 	@DisplayName("CSV Input Test")
-    @ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
-    @CsvSource({
-            "FL, 1, 1",
-            "OH, 2, 2",
-            "MI, 3, 1"
-    })
-    void csvInputTest(String stateName, int val1, int val2) {
-        System.out.println(stateName + " = " + val1 + ":" + val2);
-    }
-	
+	@ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+	// Reads value from the source
+	@CsvSource({ "FL, 1, 1", "OH, 2, 2", "MI, 3, 1" })
+	void csvInputTest(String stateName, int val1, int val2) {
+		System.out.println(stateName + " = " + val1 + ":" + val2);
+	}
+
+	@DisplayName("CSV From File Test")
+	@ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+	//Reads value from resources input.csv file
+	@CsvFileSource(resources = "/input.csv", numLinesToSkip = 1)
+	void csvFromFileTest(String stateName, int val1, int val2) {
+		System.out.println(stateName + " = " + val1 + ":" + val2);
+	}
+
 }
