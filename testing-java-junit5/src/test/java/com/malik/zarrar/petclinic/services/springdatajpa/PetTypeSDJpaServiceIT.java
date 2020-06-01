@@ -6,9 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.malik.zarrar.petclinic.extensions.TimingExtension;
 
+@ExtendWith(TimingExtension.class)
 class PetTypeSDJpaServiceIT {
-
-	@ExtendWith(TimingExtension.class)
 	@BeforeEach
 	void setUp() throws Exception {
 	}
