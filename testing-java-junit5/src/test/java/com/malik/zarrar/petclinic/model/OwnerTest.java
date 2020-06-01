@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class OwnerTest {
@@ -44,4 +45,15 @@ class OwnerTest {
 		System.out.println(val);
 	}
 
+	@DisplayName("Enum Source Test")
+	// params dependency
+	@ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+	// displayname palceholder is "value source test", index is 1,2, 3 in this case
+	// All enums are iterated here in ownertype class
+	@EnumSource(OwnerType.class)
+	void testEnumSource(OwnerType ownerType) {
+		//Prints spring, framework and guru
+		System.out.println(ownerType);
+	}
+	
 }
