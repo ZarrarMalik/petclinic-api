@@ -12,11 +12,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import com.malik.zarrar.petclinic.args.CustomArgsProvider;
 
 class OwnerTest {
 
@@ -88,5 +91,14 @@ class OwnerTest {
 
 	static Stream<Arguments> getargs() {
 		return Stream.of(Arguments.of("FL", 5, 1), Arguments.of("OH", 2, 8), Arguments.of("MI", 3, 5));
+	}
+
+	@DisplayName("Custom Provider Test")
+	@ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+	// This test uses custom args provider class as argument similar to above test
+	// but uses a class
+	@ArgumentsSource(CustomArgsProvider.class)
+	void fromCustomProviderTest(String stateName, int val1, int val2) {
+		System.out.println(stateName + " = " + val1 + ":" + val2);
 	}
 }
