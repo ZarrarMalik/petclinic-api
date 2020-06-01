@@ -28,7 +28,7 @@ class PersonTest {
 	// Repeats test 10 times
 	@RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} - {totalRepetitions}")
 	@DisplayName("My Repeated Test")
-	@Test
+	//@Test drop test annotation with repeated tests
 	void testRepeatedTest() {
 
 	}
