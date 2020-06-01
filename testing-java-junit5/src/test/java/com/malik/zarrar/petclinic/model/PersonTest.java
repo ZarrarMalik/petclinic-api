@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 class PersonTest {
 
@@ -28,8 +30,14 @@ class PersonTest {
 	// Repeats test 10 times
 	@RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} - {totalRepetitions}")
 	@DisplayName("My Repeated Test")
-	//@Test drop test annotation with repeated tests
+	// @Test drop test annotation with repeated tests
 	void testRepeatedTest() {
+
+	}
+
+	@RepeatedTest(5)
+	void myRepeatedTestWithDI(TestInfo testInfo, RepetitionInfo repetitionInfo) {
+		System.out.println(testInfo.getDisplayName() + ": " + repetitionInfo.getCurrentRepetition());
 
 	}
 
