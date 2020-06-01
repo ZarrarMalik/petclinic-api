@@ -3,6 +3,7 @@ package com.malik.zarrar.petclinic.model;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 class PersonTest {
@@ -21,6 +22,13 @@ class PersonTest {
 		// Uses multiple asserts in a single test with lambdas
 		assertAll("Test Prop set", ()-> assertEquals("Joe", person.getFirstName(), "First Name failed"),
 				() -> assertEquals("Black", person.getLastName(), "Second Name failed"));
+	}
+	
+	//Repeats test 10 times
+	@RepeatedTest(value = 10)
+	@Test
+	void testRepeatedTest() {
+		
 	}
 
 }
