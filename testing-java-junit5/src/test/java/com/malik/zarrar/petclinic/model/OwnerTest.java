@@ -1,6 +1,9 @@
 package com.malik.zarrar.petclinic.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.DisplayName;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -30,8 +33,11 @@ class OwnerTest {
 		assertThat(owner.getCity(), is("Key West"));
 	}
 
+	@DisplayName("Value Source Test")
 	// params dependency
-	@ParameterizedTest
+	@ParameterizedTest(name = "{displayName} - [{index}] {arguments}")
+	// displayname palceholder is "value source test", index is 1,2, 3 in this case
+	// arguments are acutal string values spring, framework, guru
 	@ValueSource(strings = { "Spring", "Framework", "Guru" })
 	void testValueSource(String val) {
 		//Prints spring, framework and guru
