@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 import com.malik.zarrar.petclinic.model.Speciality;
@@ -39,6 +41,22 @@ class SpecialitySDJpaServiceTest {
 		verify(specialtyRepository).findById(1L);
 
 	}
+	
+	// BDD testing
+	   @Test
+	    void findByIdBddTest() {
+	        //given
+	        Speciality speciality = new Speciality();
+	        given(specialtyRepository.findById(1L)).willReturn(Optional.of(speciality));
+
+	        //when
+	        Speciality foundSpecialty = specialitySDJpaService.findById(1L);
+
+	        //then
+	        assertThat(foundSpecialty).isNotNull();
+	        then(specialtyRepository).should().findById(anyLong());
+	        then(specialtyRepository).shouldHaveNoMoreInteractions();
+	    }
 
 	@Test
 	void testDeleteByObject() {
