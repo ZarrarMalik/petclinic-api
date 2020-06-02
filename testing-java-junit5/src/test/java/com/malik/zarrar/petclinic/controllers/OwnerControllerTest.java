@@ -101,6 +101,7 @@ class OwnerControllerTest {
 		String viewName = controller.processCreationForm(owner, bindingResult);
 		assertThat(viewName).isEqualToIgnoringCase(OWNERS_CREATE_OR_UPDATE_OWNER_FORM);
 		verify(bindingResult).hasErrors();
+		Mockito.verifyZeroInteractions(model);
 	}
 
 	@Test
@@ -115,6 +116,7 @@ class OwnerControllerTest {
 		verify(ownerService).save(any());
 		verify(owner).getId();
 		verifyNoMoreInteractions(owner, ownerService);
+		Mockito.verifyZeroInteractions(model);
 	}
 
 }
