@@ -69,6 +69,7 @@ class OwnerControllerTest {
 
 		// then
 		assertThat("%Buck%").isEqualToIgnoringCase(captor.getValue());
+		
 	}
 
 	@Test
