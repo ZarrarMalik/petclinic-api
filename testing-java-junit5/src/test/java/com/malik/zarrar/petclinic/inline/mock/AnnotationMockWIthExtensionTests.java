@@ -2,15 +2,19 @@ package com.malik.zarrar.petclinic.inline.mock;
 
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 
-@ExtendWith(MockitoExtension.class)
-public class AnnotationMockTests {
+public class AnnotationMockWIthExtensionTests {
 	@Mock
 	Map<String, Object> mockMap;
+
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	void testMock() {
