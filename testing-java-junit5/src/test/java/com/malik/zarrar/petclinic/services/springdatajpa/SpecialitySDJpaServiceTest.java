@@ -5,11 +5,15 @@ import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 import com.malik.zarrar.petclinic.model.Speciality;
 import com.malilk.zarrar.petclinic.repositories.SpecialtyRepository;
@@ -21,6 +25,29 @@ class SpecialitySDJpaServiceTest {
 	SpecialtyRepository specialtyRepository;
 	@InjectMocks
 	SpecialitySDJpaService specialitySDJpaService;
+
+	@Test
+	void findByIdTest() {
+		Speciality speciality = new Speciality();
+
+		when(specialtyRepository.findById(1L)).thenReturn(Optional.of(speciality));
+
+		Speciality foundSpecialty = specialitySDJpaService.findById(1L);
+
+		assertThat(foundSpecialty).isNotNull();
+
+		verify(specialtyRepository).findById(1L);
+
+	}
+
+	@Test
+	void testDeleteByObject() {
+		Speciality speciality = new Speciality();
+
+		specialitySDJpaService.delete(speciality);
+
+		verify(specialtyRepository).delete(any(Speciality.class));
+	}
 
 	@Test
 	void deleteById() {
