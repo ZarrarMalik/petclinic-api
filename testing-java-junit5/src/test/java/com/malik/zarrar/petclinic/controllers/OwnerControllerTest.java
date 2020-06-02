@@ -5,19 +5,24 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.malik.zarrar.petclinic.fauxspring.BindingResult;
+import com.malik.zarrar.petclinic.fauxspring.Model;
 import com.malik.zarrar.petclinic.model.Owner;
 import com.malik.zarrar.petclinic.services.OwnerService;
 
@@ -26,20 +31,30 @@ class OwnerControllerTest {
 
 	@Mock
 	Owner owner;
-	@Mock
-	BindingResult bindingResult;
+	
 	@Mock
 	OwnerService ownerService;
+	@Mock
+	Model model;
 
 	@InjectMocks
 	OwnerController controller;
 
+	@Mock
+	BindingResult bindingResult;
+	
 	@Captor
 	ArgumentCaptor<String> stringArgumentCaptor;
 
 	private static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
 	private static final String REDIRECT_OWNERS_5 = "redirect:/owners/1";
 
+	 @BeforeEach
+	    void setUp() {
+		 
+	 }
+	
+	
 	@Test
 	void processFindFormWildcardString() {
 		// given
@@ -60,6 +75,9 @@ class OwnerControllerTest {
 	void processFindFormWildcardStringAnnotation() {
 		// given
 		Owner owner = new Owner(1l, "Joe", "Buck");
+		// You can define what order you want your mocks to go in with Inorder and 
+		//Verify them at the end...to make sure thye are in order
+		InOrder inOrder = Mockito.inOrder(ownerService, model);
 		List<Owner> ownerList = new ArrayList<>();
 		when(ownerService.findAllByLastNameLike(stringArgumentCaptor.capture())).thenReturn(ownerList);
 
@@ -68,6 +86,12 @@ class OwnerControllerTest {
 
 		// then
 		assertThat("%Buck%").isEqualToIgnoringCase(stringArgumentCaptor.getValue());
+		
+		  // inorder asserts
+		
+        inOrder.verify(ownerService).findAllByLastNameLike(anyString());
+       // inOrder.verify(model).addAttribute(anyString(), anyList());
+       
 	}
 
 	@Test
