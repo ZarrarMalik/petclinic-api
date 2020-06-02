@@ -1,6 +1,10 @@
 package com.malik.zarrar.petclinic.controllers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.malik.zarrar.petclinic.fauxspring.BindingResult;
 import com.malik.zarrar.petclinic.model.Owner;
 import com.malik.zarrar.petclinic.services.OwnerService;
-
-import static org.mockito.Mockito.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
@@ -28,11 +29,14 @@ class OwnerControllerTest {
 	@InjectMocks
 	OwnerController controller;
 	
+	private static final String OWNERS_CREATE_OR_UPDATE_OWNER_FORM = "owners/createOrUpdateOwnerForm";
+    private static final String REDIRECT_OWNERS_5 = "redirect:/owners/1";
 	
 	@Test
 	void testProcessCreationForm_HasErrors() {
 		when(bindingResult.hasErrors()).thenReturn(true);
-		assertThat(controller.processCreationForm(owner, bindingResult)).isNotNull();
+		String viewName = controller.processCreationForm(owner, bindingResult);
+		assertThat(viewName).isEqualToIgnoringCase(OWNERS_CREATE_OR_UPDATE_OWNER_FORM);
 		verify(bindingResult).hasErrors();
 	}
 	
@@ -42,7 +46,8 @@ class OwnerControllerTest {
 		when(ownerService.save(any())).thenReturn(owner);
 		Long value = 1L;
 		when(owner.getId()).thenReturn(value );
-		assertThat(controller.processCreationForm(owner, bindingResult)).isNotNull();
+		String viewName = controller.processCreationForm(owner, bindingResult);
+		assertThat(viewName).isEqualToIgnoringCase(REDIRECT_OWNERS_5);
 		verify(bindingResult).hasErrors();
 		verify(ownerService).save(any());
 		verify(owner).getId();
